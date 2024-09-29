@@ -1,0 +1,297 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .header-container {
+    display: flex;
+    width: 100%;
+    height: 10vh;
+    padding-top: 5px;
+    justify-content: space-evenly;
+    background: rgb(43, 37, 20);
+    box-shadow: 0 5px 20px black;
+  }
+  h1 {
+    color: white;
+    text-shadow: 0px 0px 10px white, 0px 0px 20px white, 0px 0px 40px blue,
+      0px 0px 80px white;
+    font-size: 40px;
+    margin: 8px;
+    font-family: "Baskervville SC", serif;
+    /* font-family: "Matemasie", sans-serif; */
+    cursor: pointer;
+  }
+  .header-container button {
+    width: 20%;
+    font-size: 20px;
+    font-style: bold;
+    font-family: "Baskervville SC", serif;
+    /* font-family: "Baskervville SC", serif; */
+    background-color: rgb(147, 149, 150);
+    border-radius: 50px;
+    transition: 0.3s ease;
+    cursor: pointer;
+    display: inline block;
+    position: relative;
+    color: white;
+    z-index: 1;
+    box-shadow: 0 5px 20px black;
+  }
+  .header-container button:before {
+    transition: 0.5s all ease;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    opacity: 0;
+    content: "";
+    background-color: white;
+    border-radius: 50px;
+    z-index: -1;
+  }
+  .header-container button:hover,
+  .header-container button:focus {
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+  }
+  .header-container button:hover:before,
+  .header-container button:focus:before {
+    transition: 0.5s all ease;
+    left: 0;
+    right: 0;
+    opacity: 1;
+  }
+  .header-container button:active {
+    transform: scale(0.9);
+  }
+  .main-container {
+    width: 100%;
+    height: 100vh;
+    margin: 4% auto;
+    box-shadow: 0 5px 20px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @keyframes fade {
+    0% {
+      opacity: 1;
+    }
+    20% {
+      opacity: 0;
+    }
+    40% {
+      opacity: 0;
+    }
+    60% {
+      opacity: 0;
+    }
+    80% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  .main-container img {
+    width: 100%;
+    height: 105%;
+    position: absolute;
+    object-fit: cover;
+    animation: fade 15s ease-in-out infinite alternate;
+  }
+  .main-container img:nth-of-type(1) {
+    animation-delay: 0s;
+  }
+  .main-container img:nth-of-type(2) {
+    animation-delay: 2.5s;
+  }
+  .main-container img:nth-of-type(3) {
+    animation-delay: 6s;
+  }
+  .main-container img:nth-of-type(4) {
+    animation-delay: 9s;
+  }
+  .main-container img:nth-of-type(5) {
+    animation-delay: 12s;
+  }
+  button {
+    font-size: 35px;
+    font-family: "Baskervville SC", serif;
+    color: white;
+    position: relative;
+    z-index: 100;
+    border-radius: 50px;
+    display: inline block;
+    background: rgb(147, 149, 150);
+    padding: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px black;
+    transition: 0.3s ease;
+    bottom: -10%;
+  }
+  button:before {
+    transition: 0.5s all ease;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    opacity: 0;
+    content: "";
+    background-color: white;
+    border-radius: 50px;
+    z-index: -1;
+  }
+  button:hover {
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+  }
+  button:hover:before,
+  button:focus:before {
+    transition: 0.5s all ease;
+    left: 0;
+    right: 0;
+    opacity: 1;
+  }
+  button:active {
+    transform: scale(1.2);
+  }
+  .about-container {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    justify-content: space-evenly;
+    padding-right: 5%;
+  }
+  .about {
+    width: 40%;
+    height: 50%;
+    font-size: 20px;
+    display: flex;
+    margin: auto auto;
+    padding-right: 5%;
+    /* border-right: 1px solid black; */
+  }
+  .about-pic {
+    width: 40%;
+    height: 90%;
+    background-image: url("about-pic1.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    box-shadow: 0 5px 20px black;
+  }
+  .info-container {
+    width: 90%;
+    height: 90vh;
+    /* border: 2px solid black; */
+    margin: auto auto;
+    box-shadow: 0 5px 20px black;
+    /* background: rgb(65, 64, 64); */
+    background: rgb(147, 149, 150);
+  }
+  .rotate-pic {
+    display: block;
+    margin: 3% auto;
+    width: 200px;
+    height: 200px;
+    border-radius: 50px;
+    -webkit-animation: spin 1s linear infinite;
+    -moz-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+  }
+  @-webkit-keyframes spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  @-moz-keyframes spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  @keyframes spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  .services-container {
+    width: 100%;
+    height: 575px;
+    display: flex;
+  }
+  .services {
+    margin-top: 5%;
+    width: 50%;
+    height: 90%;
+    text-align: center;
+  }
+  .services:nth-of-type(1) {
+    border-right: 2px solid black;
+  }
+  .services ul {
+    list-style: none;
+    margin-top: 5%;
+    font-size: 35px;
+    color: white;
+  }
+  .services li {
+    /* margin-top: 10%; */
+    /*   */
+    padding: 5% 0;
+    text-shadow: 0px 0px 10px white, 0px 0px 40px white, 0px 0px 80px white;
+  }
+  .footer-container {
+    margin-top: 8%;
+    height: 25vh;
+    width: 100%;
+    background: rgb(43, 37, 20);
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .footer-container div {
+    width: 30%;
+    color: white;
+    font-size: 22px;
+    /* text-align: center; */
+    padding: 3% 0 0 2%;
+    line-height: 40px;
+    font-family: "Roboto", sans-serif;
+  }
+  .footer-container div:nth-of-type(1) {
+    text-align: left;
+  }
+  .footer-container div:nth-of-type(2) {
+    text-align: center;
+  }
+  .footer-container div:nth-of-type(3) {
+    text-align: right;
+  }
+  .fa {
+    padding: 10px;
+    font-size: 30px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+  }
+  .fa-facebook {
+    background: rgb(147, 149, 150);
+    color: white;
+  }
+  .fa-twitter {
+    background: rgb(147, 149, 150);
+    color: white;
+  }
+  .fa-instagram {
+    background: rgb(147, 149, 150);
+    color: white;
+  }
+  
+  
+  
