@@ -1,41 +1,92 @@
 const express = require('express')
 const app = express()
-const cors = require('cors')
-const PORT = 8000
+const MongoClient = require('mongodb').MongoClient
+const PORT = 2121
+require('dotenv').config()
 
-app.use(cors())
+let db,
+    dbConnectionStr = process.env.DB_String,
+    dbName = 'todo'
 
-const rappers = {
-    '21 savage':{
-        'age': 32,
-        'birthName':'Shéyaa Bin Abraham-Joseph',
-        'birthLocation':'London, England',
-    },
-    'chance the rapper':{
-        'age': 32,
-        'birthName':'Chancelor Bennett',
-        'birthLocation':'Chicago, Illinois',
-    },
-    'dylan':{
-        'age': 32,
-        'birthName':'Dylan',
-        'birthLocation':'Dylan',
-    },
-}
+MongoClient.connect(dbConnectionStr)
+    .then(client => {
+        console.log(`Connected to ${dbName} Database`)
+        db = client.db('todo')
+    })
+    
+app.set('view engine', 'ejs')
+app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
-app.get('/', (request, response)=>{
-    response.sendFile(__dirname + '/index.html')
+
+app.get('/',async (request, response)=>{
+    // const todoItems = await db.collection('todos').find().toArray()
+    // const itemsLeft = await db.collection('todos').countDocuments({completed: false})
+    // response.render('index.ejs', { items: todoItems, left: itemsLeft })
+    db.collection('todos').find().toArray()
+    .then(data => {
+        db.collection('todos').countDocuments({completed: false})
+        .then(itemsLeft => {
+            response.render('index.ejs', { items: data, left: itemsLeft })
+        })
+    })
+    .catch(error => console.error(error))
 })
 
-app.get('/api/:rapperName', (request, response)=>{
-    const rappersName = request.params.rapperName.toLowerCase()
-    if(rappers[rappersName]){
-        response.json(rappers[rappersName])
-    }else{
-        response.json(rappers['dylan'])
-    }
+app.post('/addTodo', (request, response) => {
+    db.collection('todos').insertOne({thing: request.body.todoItem, completed: false})
+    .then(result => {
+        console.log('Todo Added')
+        response.redirect('/')
+    })
+    .catch(error => console.error(error))
+})
+
+app.put('/markComplete', (request, response) => {
+    db.collection('todos').updateOne({thing: request.body.itemFromJS},{
+        $set: {
+            completed: true
+          }
+    },{
+        sort: {_id: -1},
+        upsert: false
+    })
+    .then(result => {
+        console.log('Marked Complete')
+        response.json('Marked Complete')
+    })
+    .catch(error => console.error(error))
+
+})
+
+app.put('/markUnComplete', (request, response) => {
+    db.collection('todos').updateOne({thing: request.body.itemFromJS},{
+        $set: {
+            completed: false
+          }
+    },{
+        sort: {_id: -1},
+        upsert: false
+    })
+    .then(result => {
+        console.log('Marked Complete')
+        response.json('Marked Complete')
+    })
+    .catch(error => console.error(error))
+
+})
+
+app.delete('/deleteItem', (request, response) => {
+    db.collection('todos').deleteOne({thing: request.body.itemFromJS})
+    .then(result => {
+        console.log('Todo Deleted')
+        response.json('Todo Deleted')
+    })
+    .catch(error => console.error(error))
+
 })
 
 app.listen(process.env.PORT || PORT, ()=>{
-    console.log(`The server is running on port ${PORT}! You better go catch it!`)
+    console.log(`Server running on port ${PORT}`)
 })
