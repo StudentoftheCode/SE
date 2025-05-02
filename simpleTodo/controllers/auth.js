@@ -2,7 +2,7 @@ const User = require('../models/User')
 const validator = require('validator')
 
 exports.getLogin = (req, res) => {
-    res.render('login') // Make sure there's a login.ejs view
+    res.render('login') 
 }
 
 exports.postLogin = async (req, res, next) => {
@@ -11,14 +11,14 @@ exports.postLogin = async (req, res, next) => {
   try {
     const user = await User.findOne({ email })
     if (!user) {
-      req.flash('errors', { msg: 'Invalid email or password' })
-      return res.redirect('/login')
+      req.flash('errors', { msg: 'Email or password does not exist' })
+      return res.redirect('/signup')
     }
 
     const isMatch = await user.comparePassword(password)
     if (!isMatch) {
-      req.flash('errors', { msg: 'Invalid email or password' })
-      return res.redirect('/login')
+      req.flash('errors', { msg: 'Email or password does not exist' })
+      return res.redirect('/signup')
     }
 
     req.logIn(user, (err) => {
@@ -32,7 +32,7 @@ exports.postLogin = async (req, res, next) => {
 }
 
 exports.getSignup = (req, res) => {
-    res.render('signup') // Make sure there's a signup.ejs view
+    res.render('signup') 
 }
 
 exports.postSignup = async (req, res, next) => {
@@ -65,7 +65,7 @@ exports.postSignup = async (req, res, next) => {
 
         if (existingUser) {
             req.flash('errors', { msg: 'Account with that email address or username already exists.' })
-            return res.redirect('/signup')
+            return res.redirect('/login')
         }
 
         const user = new User({
