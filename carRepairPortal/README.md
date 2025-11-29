@@ -2,7 +2,7 @@ Car Repair Portal
 
 A full-stack web application for managing car repair jobs, customers, notes and print-ready job summaries. Built with Node.js, Express, MONGODB(Mongoose) and EJS
 
-🔧 Features
+ Features
 	•	User Authentication (login + logout)
 	•	Create / View / Edit / Delete repair jobs
 	•	Add and manage customer information
@@ -43,7 +43,7 @@ Database:
 App runs at:
 ➡️ http://localhost:3000
 
-🖨️ Print Job Feature
+ Print Job Feature
 
 Your application includes a dedicated print-friendly view (print-job.ejs) that displays:
 	•	Job details
