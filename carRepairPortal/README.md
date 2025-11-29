@@ -29,7 +29,7 @@ Database:
 
   Setup Instructions
   1. Clone Repo
-     git clone https://github.com/StudentoftheCode/car-repair-portal.git
+     git clone https://github.com/StudentoftheCode/SE/tree/main/carRepairPortal
      cd car-repair-portal
   2. Install Dependancies
      npm install  
