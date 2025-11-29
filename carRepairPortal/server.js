@@ -15,7 +15,6 @@ require('dotenv').config({ path: './config/.env' });
 // Passport config
 require('./config/passport')(passport);
 
-// Connect to MongoDB using DB_STRING from .env file
 connectDB();
 
 app.set('view engine', 'ejs');

@@ -1,31 +1,37 @@
-const LocalStrategy = require('passport-local').Strategy
-const mongoose = require('mongoose')
-const User = require('../models/User')
+const LocalStrategy = require('passport-local').Strategy;
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+
+// Load User model
+const User = require('../models/Users');
 
 module.exports = function (passport) {
   passport.use(
-    new LocalStrategy({ usernameField: 'admin' }, async (userName, password, done) => {
+    new LocalStrategy({ usernameField: 'username' }, async (username, password, done) => {
       try {
-        const user = await User.findOne({ userName: userName.toLowerCase() });
-
+        const user = await User.findOne({ username: username });
         if (!user) {
-          return done(null, false, { msg: `User ${userName} not found.` });
+          console.log('✅ Checking login for:', username);
+          console.log('✅ User found:', user);
+          console.log('✅ Password match:', isMatch);
+          return done(null, false, { message: 'No user found' });
         }
 
-        if (!user.password) {
-          return done(null, false, {
-            msg: 'Your account was registered using a sign-in provider. To enable password login, sign in using a provider, and then set a password under your user profile.',
-          });
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+          console.log('✅ Checking login for:', username);
+          console.log('✅ User found:', user);
+          console.log('✅ Password match:', isMatch);
+          return done(null, false, { message: 'Incorrect password' });
         }
-
-        const isMatch = await user.comparePassword(password);
-
-        if (isMatch) {
-          return done(null, user);
-        } else {
-          return done(null, false, { msg: 'Invalid user or password.' });
-        }
+        console.log('✅ Checking login for:', username);
+        console.log('✅ User found:', user);
+        console.log('✅ Password match:', isMatch);
+        return done(null, user);
       } catch (err) {
+        console.log('✅ Checking login for:', username);
+        console.log('✅ User found:', user);
+        console.log('✅ Password match:', isMatch);
         return done(err);
       }
     })
